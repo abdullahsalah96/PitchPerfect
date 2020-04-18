@@ -19,20 +19,16 @@ class PlaySoundsViewController: UIViewController {
     @IBOutlet weak var echoButton: UIButton!
     @IBOutlet weak var reverbButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
-    
     //audio play params
     var recordedAudioURL:URL!
     var audioFile:AVAudioFile!
     var audioEngine:AVAudioEngine!
     var audioPlayerNode: AVAudioPlayerNode!
     var stopTimer: Timer!
-    
     //Buttons enums (tags)
     enum ButtonType: Int {
         case slow = 0, fast, chipmunk, vader, echo, reverb
     }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         //retain aspect ratio to handle different screens and orientations
@@ -46,12 +42,15 @@ class PlaySoundsViewController: UIViewController {
         //setup audio playing
         setupAudio()
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureUI(.notPlaying) //not playing audio
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        //if view will disappear stop recording
+        super.viewWillDisappear(animated)
+        stopAudio()
+    }
     @IBAction func playSoundForButton(_ sender: UIButton){
         //play sound based on button tag
         switch(ButtonType(rawValue: sender.tag)!) {
@@ -70,7 +69,6 @@ class PlaySoundsViewController: UIViewController {
         }
         configureUI(.playing)
     }
-    
     @IBAction func stopButton(_ sender: UIButton){
         //stop playing sound
         stopAudio()
