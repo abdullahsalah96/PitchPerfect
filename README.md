@@ -8,7 +8,6 @@ This is a simple iOS app that lets users record their sound and play it back wit
 </p>
 
 - Play record view
-![](playSound.png | height = 100)
 <p align="center">
   <img src="playSound.png" width="149" height="300">
 </p>
